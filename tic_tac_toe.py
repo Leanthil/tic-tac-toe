@@ -106,8 +106,8 @@ def print_board(board):
 
 def print_result(winner):
     """Congratulates winner or proclaims tie (if winner equals zero)."""
-    # if winner == 0:
-    #     print("It's a tie!")
+    if winner == 0:
+        print("It's a tie!")
     if winner == 1:
         print('X won!')
     if winner == 2:
