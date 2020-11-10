@@ -10,18 +10,6 @@ def get_move(board, player):
     moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     move = input('Please enter your move: ')
 
-    if board[row][col] != '.':
-        print('That is already taken')
-        return get_move(board, player)
-
-    if move.lower() == 'quit':
-        print('QUIT')
-        exit()
-
-    if move.lower() not in moves:
-        print('That is not a valid move!')
-        return get_move(board, player)
-
     if 'a' in move.lower():
         row = 0
     elif 'b' in move.lower():
@@ -35,6 +23,19 @@ def get_move(board, player):
         col = 1
     elif '3' in move:
         col = 2
+
+    if board[row][col] != '.':
+        print('That is already taken')
+        return get_move(board, player)
+
+    if move.lower() == 'quit':
+        print('QUIT')
+        exit()
+
+    if move.lower() not in moves:
+        print('That is not a valid move!')
+        return get_move(board, player)
+
     return row, col
 
 
