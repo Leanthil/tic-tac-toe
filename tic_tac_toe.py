@@ -70,7 +70,15 @@ def has_won(board, player):
 
 def is_full(board):
     """Returns True if board is full."""
-    return False
+    count = 0
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == ".":
+                count += 1
+    if count == 0:
+        return True
+    else:
+        return False
 
 
 def print_board(board):
@@ -113,12 +121,20 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         print_board(board)
         row, col = get_move(board, player)
         board = mark(board, player, row, col)
+        if is_full(board):
+            print("It's a tie!")
+            break
         if player == 1:
             player = 2
         else:
             player = 1
-    # winner = 0
-    # print_result(winner)
+        if has_won(board, 1):
+            winner = 1
+            break
+        elif has_won(board, 2):
+            winner = 2
+            break
+    print_result(winner)
 
 
 def main_menu():
