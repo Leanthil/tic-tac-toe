@@ -98,8 +98,8 @@ def print_board(board):
 
 def print_result(winner):
     """Congratulates winner or proclaims tie (if winner equals zero)."""
-    # if winner == 0:
-    #     print("It's a tie!")
+    if winner == 0:
+        print("It's a tie!")
     if winner == 1:
         print('X won!')
     if winner == 2:
@@ -117,8 +117,14 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
             player = 2
         else:
             player = 1
-    # winner = 0
-    # print_result(winner)
+
+    if has_won(board, 1):
+        winner = 1
+    elif has_won(board, 2):
+        winner = 2
+    else:
+        winner = 0
+    print_result(winner)
 
 
 def main_menu():
