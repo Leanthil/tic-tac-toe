@@ -6,7 +6,7 @@ def init_board():
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
-    row, col = 3, 3
+    row, col = 0, 0
     moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     move = input('Please enter your move: ')
 
@@ -46,11 +46,21 @@ def get_ai_move(board, player):
 
 def mark(board, player, row, col):
     """Marks the element at row & col on the board for player."""
-    pass
+    if board[row][col] == '.':
+        board[row][col] = player
 
 
 def has_won(board, player):
     """Returns True if player has won the game."""
+    if (board[0][0] == board[0][1] == board[0][2] == player or
+       board[1][0] == board[1][1] == board[1][2] == player or
+       board[2][0] == board[2][1] == board[2][2] == player or
+       board[0][0] == board[1][0] == board[2][0] == player or
+       board[0][1] == board[1][1] == board[2][1] == player or
+       board[0][2] == board[1][2] == board[2][2] == player or
+       board[0][0] == board[1][1] == board[2][2] == player or
+       board[0][2] == board[1][1] == board[2][0] == player):
+        return True
     return False
 
 
