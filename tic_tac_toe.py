@@ -21,7 +21,6 @@ def get_move(board, player):
     if move.lower() not in moves:
         print('That is not a valid move!')
         return get_move(board, player)
-    return row, col
 
     if 'a' in move.lower():
         row = 0
@@ -36,6 +35,7 @@ def get_move(board, player):
         col = 1
     elif '3' in move:
         col = 2
+    return row, col
 
 
 def get_ai_move(board, player):
@@ -47,7 +47,7 @@ def get_ai_move(board, player):
 def mark(board, player, row, col):
     """Marks the element at row & col on the board for player."""
     for i in range(3):
-        for j in range(3):        
+        for j in range(3):
             if board[row][col] == '.':
                 board[row][col] = player
     return board
@@ -107,11 +107,15 @@ def print_result(winner):
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
     board = init_board()
-    while True:    
+    player = 1
+    while not has_won(board, player):
         print_board(board)
-        row, col = get_move(board, 1)
-        board = mark(board, 1, row, col)
-
+        row, col = get_move(board, player)
+        board = mark(board, player, row, col)
+        if player == 1:
+            player = 2
+        else:
+            player = 1
     # winner = 0
     # print_result(winner)
 
