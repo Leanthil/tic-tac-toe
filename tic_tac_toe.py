@@ -1,7 +1,10 @@
 import random
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e03a168407963d17832830680ff11dea59bae591
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
     board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
@@ -122,6 +125,7 @@ def print_result(winner):
         print('O won!')
 
 
+<<<<<<< HEAD
 def tictactoe_game(mode='HUMAN-HUMAN'):
     if mode == 'HUMAN-HUMAN':
         board = init_board()
@@ -180,6 +184,50 @@ def main_menu():
     else:
         main_menu()
     tictactoe_game('HUMAN-HUMAN')
+=======
+def tictactoe_game(mode):
+    board = init_board()
+    player = 1
+    winner = 0
+    ai_move = [0, 0]
+    while not has_won(board, player):
+        print_board(board)
+        legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
+        if (mode == 2 and player == 2) or (mode == 3 and player == 1):
+            ai_move = random.choice(legal_moves)
+            board = mark(board, player, ai_move[0], ai_move[1])
+        else:
+            row, col = get_move(board, player)
+            board = mark(board, player, row, col)
+        if player == 1:
+            player = 2
+        else:
+            player = 1
+        if has_won(board, 1):
+            winner = 1
+            break
+        elif has_won(board, 2):
+            winner = 2
+            break
+        if is_full(board):
+            break
+    print_board(board)
+    print_result(winner)
+
+
+def main_menu():
+    print("\033c")
+    print("""  _____ _            _             _       __ _               
+ |_   _(_) ___   ___| |_ __ _  ___| | __  / _| | _____      __
+   | | | |/ __| / __| __/ _` |/ __| |/ / | |_| |/ _ \ \ /\ / /
+   | | | | (__  \__ \ || (_| | (__|   <  |  _| | (_) \ V  V / 
+   |_| |_|\___| |___/\__\__,_|\___|_|\_\ |_| |_|\___/ \_/\_/  
+                                                              
+        Hi! Welcome to a game of Tic - tac - toe!
+        1: HUMAN VS HUMAN        2: HUMAN VS AI         3: AI VS HUMAN""")
+    mode = int(input("      Please choose a game mode! (1/2/3): "))
+    tictactoe_game(mode)
+>>>>>>> e03a168407963d17832830680ff11dea59bae591
 
 
 if __name__ == '__main__':
