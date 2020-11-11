@@ -27,16 +27,16 @@ def get_move(board, player):
     elif '3' in move:
         col = 2
 
-    if board[row][col] != '.':
-        print('That is already taken')
-        return get_move(board, player)
-
     if move.lower() == 'quit':
-        print('QUIT')
+        print('Bye!')
         exit()
 
     if move.lower() not in moves:
         print('That is not a valid move!')
+        return get_move(board, player)
+
+    if board[row][col] != '.':
+        print('That is already taken')
         return get_move(board, player)
 
     return row, col
@@ -89,6 +89,7 @@ def print_board(board):
     new_board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
     for x in range(len(board)):
         for y in range(len(board[0])):
+            print("\033c")
             if board[x][y] == 0:
                 new_board[x][y] = '.'
             if board[x][y] == 1:
@@ -126,6 +127,8 @@ def tictactoe_game(mode):
         legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
         if mode == 2 and player == 2:
             board = mark(board, player, random.choice(legal_moves)[0], random.choice(legal_moves)[1])
+        if mode == 3 and player == 1:
+            board = mark(board, player, random.choice(legal_moves)[1], random.choice(legal_moves)[0])
         else:
             row, col = get_move(board, player)
             board = mark(board, player, row, col)
@@ -141,20 +144,21 @@ def tictactoe_game(mode):
         elif has_won(board, 2):
             winner = 2
             break
+    print_board(board)
     print_result(winner)
 
 
 def main_menu():
     print("\033c")
-    print("""  _____ _            _             _       __ _               
- |_   _(_) ___   ___| |_ __ _  ___| | __  / _| | _____      __
-   | | | |/ __| / __| __/ _` |/ __| |/ / | |_| |/ _ \ \ /\ / /
-   | | | | (__  \__ \ || (_| | (__|   <  |  _| | (_) \ V  V / 
-   |_| |_|\___| |___/\__\__,_|\___|_|\_\ |_| |_|\___/ \_/\_/  
-                                                              
-        Hi! Welcome to a game of Tic - tac - toe!
-        1: HUMAN VS HUMAN        2: HUMAN VS AI""")
-    mode = int(input("      Please choose a game mode! (1/2): "))
+    print("""  _____ _             _             _        __ _
+ |_   _(_) ___    ___| |_ __ _  ___| | __   / _| | _____      __
+   | | | |/ __|  / __| __/ _` |/ __| |/ /  | |_| |/ _ \\ \\ /\\ / /
+   | | | | (__   \\__ \\ || (_| | (__|   <   |  _| | (_) \\ V  V /
+   |_| |_|\\___|  |___/\\__\\__,_|\\___|_|\\_\\  |_| |_|\\___/ \\_/\\_/
+
+           Hi! Welcome to a game of Tic - tac - toe!
+    1: HUMAN VS HUMAN    2: HUMAN VS AI    3: AI VS HUMAN""")
+    mode = int(input("             Please choose a game mode! (1/2/3): "))
     tictactoe_game(mode)
 
 
