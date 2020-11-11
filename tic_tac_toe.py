@@ -1,10 +1,6 @@
 import random
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e03a168407963d17832830680ff11dea59bae591
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
     board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
@@ -48,12 +44,7 @@ def get_move(board, player):
 
 def get_ai_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
-    row = random.randint(0, 2)
-    col = random.randint(0, 2)
-    while board[row][col] != 0:
-        row = random.randint(0, 2)
-        col = random.randint(0, 2)
-    return row, col
+
 
 
 def mark(board, player, row, col):
@@ -125,66 +116,6 @@ def print_result(winner):
         print('O won!')
 
 
-<<<<<<< HEAD
-def tictactoe_game(mode='HUMAN-HUMAN'):
-    if mode == 'HUMAN-HUMAN':
-        board = init_board()
-        player = 1
-        winner = 0
-        while not has_won(board, player):
-            print_board(board)
-            row, col = get_move(board, player)
-            board = mark(board, player, row, col)
-            if player == 1:
-                player = 2
-            else:
-                player = 1
-            if has_won(board, 1):
-                winner = 1
-                break
-            elif has_won(board, 2):
-                winner = 2
-                break
-            if is_full(board):
-                break
-        print_result(winner)
-        print_board(board)
-        select = input("Would you like restart the game? 'Y' 'N': ")
-        if select == 'Y'.lower():
-            return main_menu()
-        else:
-            quit()
-    elif mode == 'HUMAN-AI':
-        board = init_board()
-        player = 2
-        while not has_won(board, player):
-            print_board(board)
-            row, col = get_ai_move(board, player)
-            board = mark(board, player, row, col)
-            
-
-            
-
-            
-    
-
-
-def main_menu():
-    print("Welcome in Tic-tac-toe game!")
-    print("1. HUMAN-HUMAN")
-    print("2. HUMAN-AI")
-    print("3. QUIT")
-    select = input(" Please select a game mode!: ")
-    if select == "quit".lower():
-        quit()
-    elif select == str(1):
-            tictactoe_game('HUMAN-HUMAN')
-    elif select == str(2):
-            tictactoe_game('HUMAN-AI')
-    else:
-        main_menu()
-    tictactoe_game('HUMAN-HUMAN')
-=======
 def tictactoe_game(mode):
     board = init_board()
     player = 1
@@ -213,6 +144,12 @@ def tictactoe_game(mode):
             break
     print_board(board)
     print_result(winner)
+    select = input("Would you like restart the game?: 'Y'  'N' :")
+    if select == "y":
+        return main_menu()
+    elif select == "n":
+        print("Thank you for the game!\n   Bye,Bye!!!!")
+        quit()
 
 
 def main_menu():
@@ -227,7 +164,6 @@ def main_menu():
         1: HUMAN VS HUMAN        2: HUMAN VS AI         3: AI VS HUMAN""")
     mode = int(input("      Please choose a game mode! (1/2/3): "))
     tictactoe_game(mode)
->>>>>>> e03a168407963d17832830680ff11dea59bae591
 
 
 if __name__ == '__main__':
