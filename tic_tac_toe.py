@@ -127,9 +127,9 @@ def tictactoe_game(mode):
     player = 1
     winner = 0
     ai_move = [0, 0]
-    legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
     while not has_won(board, player):
         print_board(board)
+        legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
         if (mode == 2 and player == 2) or (mode == 3 and player == 1):
             ai_move = random.choice(legal_moves)
             board = mark(board, player, ai_move[0], ai_move[1])
