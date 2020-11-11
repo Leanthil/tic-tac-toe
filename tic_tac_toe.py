@@ -1,3 +1,6 @@
+import random
+
+
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
     board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
@@ -114,15 +117,19 @@ def print_result(winner):
         print('O won!')
 
 
-def tictactoe_game(mode='HUMAN-HUMAN'):
+def tictactoe_game(mode):
     board = init_board()
     player = 1
+    winner = 0
     while not has_won(board, player):
         print_board(board)
-        row, col = get_move(board, player)
-        board = mark(board, player, row, col)
+        legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
+        if mode == 2 and player == 2:
+            board = mark(board, player, random.choice(legal_moves)[0], random.choice(legal_moves)[1])
+        else:
+            row, col = get_move(board, player)
+            board = mark(board, player, row, col)
         if is_full(board):
-            print("It's a tie!")
             break
         if player == 1:
             player = 2
@@ -138,7 +145,17 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
 
 
 def main_menu():
-    tictactoe_game('HUMAN-HUMAN')
+    print("\033c")
+    print("""  _____ _            _             _       __ _               
+ |_   _(_) ___   ___| |_ __ _  ___| | __  / _| | _____      __
+   | | | |/ __| / __| __/ _` |/ __| |/ / | |_| |/ _ \ \ /\ / /
+   | | | | (__  \__ \ || (_| | (__|   <  |  _| | (_) \ V  V / 
+   |_| |_|\___| |___/\__\__,_|\___|_|\_\ |_| |_|\___/ \_/\_/  
+                                                              
+        Hi! Welcome to a game of Tic - tac - toe!
+        1: HUMAN VS HUMAN        2: HUMAN VS AI""")
+    mode = int(input("      Please choose a game mode! (1/2): "))
+    tictactoe_game(mode)
 
 
 if __name__ == '__main__':
