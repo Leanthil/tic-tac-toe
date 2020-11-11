@@ -121,16 +121,16 @@ def tictactoe_game(mode):
     board = init_board()
     player = 1
     winner = 0
+    ai_move = [0, 0]
     while not has_won(board, player):
         print_board(board)
         legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
         if (mode == 2 and player == 2) or (mode == 3 and player == 1):
-            board = mark(board, player, random.choice(legal_moves)[0], random.choice(legal_moves)[1])
+            ai_move = random.choice(legal_moves)
+            board = mark(board, player, ai_move[0], ai_move[1])
         else:
             row, col = get_move(board, player)
             board = mark(board, player, row, col)
-        if is_full(board):
-            break
         if player == 1:
             player = 2
         else:
@@ -141,6 +141,9 @@ def tictactoe_game(mode):
         elif has_won(board, 2):
             winner = 2
             break
+        if is_full(board):
+            break
+    print_board(board)
     print_result(winner)
 
 
