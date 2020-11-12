@@ -10,9 +10,13 @@ def init_board():
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
+    if player == 1:
+        player_name = 'X'
+    elif player == 2:
+        player_name = 'O'
     row, col = 0, 0
     moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
-    move = input('Please enter your move: ')
+    move = input(player_name + ', please enter your move: ')
 
     if 'a' in move.lower():
         row = 0
@@ -44,8 +48,12 @@ def get_move(board, player):
 
 def get_ai_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
+    time.sleep(1)
     row = random.randint(0, 2)
     col = random.randint(0, 2)
+    if board[1][1] == '.':
+        row, col = 1, 1
+        return(row, col)
     while board[row][col] != '.':
         row = random.randint(0, 2)
         col = random.randint(0, 2)
@@ -126,20 +134,20 @@ def tictactoe_game(mode):
     board = init_board()
     player = 1
     winner = 0
-    ai_move = [0, 0]
     while not has_won(board, player):
         print_board(board)
-        legal_moves = [[x, y] for x, li in enumerate(board) for y, val in enumerate(li) if val == '.']
         if (mode == 2 and player == 2) or (mode == 3 and player == 1):
-            ai_move = random.choice(legal_moves)
+            ai_move = get_ai_move(board, player)
             board = mark(board, player, ai_move[0], ai_move[1])
+
         elif mode == 4:
             row, col = get_ai_move(board, player)
             board = mark(board, player, row, col)
-            time.sleep(1)
+
         else:
             row, col = get_move(board, player)
             board = mark(board, player, row, col)
+
         if player == 1:
             player = 2
         else:
