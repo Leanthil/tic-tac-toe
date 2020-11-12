@@ -53,19 +53,11 @@ def get_ai_move(board, player):
     col = random.randint(0, 2)
     if board[1][1] == '.':
         row, col = 1, 1
-        return(row, col)
-
+        return row, col
     while board[row][col] != '.':
         row = random.randint(0, 2)
         col = random.randint(0, 2)
-    return(row,col)
-
-
-    
-        
-
-    
-
+    return row, col
 
 
 def mark(board, player, row, col):
@@ -147,7 +139,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
             print_board(board)
             row, col = get_move(board, player)
             board = mark(board, player, row, col)
-
             if player == 1:
                 player = 2
             else:
@@ -158,8 +149,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
             elif has_won(board, 2):
                 winner = 2
                 break
-            # if is_full(board):
-            #     break
         print_board(board)
         print_result(winner)
         again()
@@ -177,7 +166,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
                 row, col = get_ai_move(board, 2)
                 mark(board, 2, row, col)
                 print_board(board)
-
             if player == 1:
                 player = 2
             else:
@@ -205,7 +193,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
                 row, col = get_move(board, 2)
                 mark(board, 2, row, col)
                 print_board(board)
-
             if player == 1:
                 player = 2
             else:
@@ -266,8 +253,7 @@ def main_menu():
 
 1: HUMAN VS HUMAN    2: HUMAN VS AI    3: AI VS HUMAN    4: AI VS AI""")
     print("\n")
-    mode = input("              Please choose a game mode! (1/2/3/4): ")
-
+    mode = input("                Please choose a game mode! (1-4): ")
     if mode == 'quit':
         print("Bye!")
         quit()
