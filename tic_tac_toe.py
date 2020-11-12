@@ -49,28 +49,16 @@ def get_move(board, player):
 def get_ai_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
     time.sleep(1)
-    row = 0 #random.randint(0, 2)
-    col = 0#random.randint(0, 2)
+    row = random.randint(0, 2)
+    col = random.randint(0, 2)
     if board[1][1] == '.':
         row, col = 1, 1
         return(row, col)
-        for i in init_board():
-            col = 0
-            for y in i:
-                if y == 0:
-                    i[col] = player
-                    if has_won(board, player):
-                        return(row,col)
-                    else:
-                        i[col] = 0
-                    col += 1
-                row += 1
-                return (row,col)
 
-    #while board[row][col] != '.':
-        #row = random.randint(0, 2)
-        #col = random.randint(0, 2)
-    #return(row,col)
+    while board[row][col] != '.':
+        row = random.randint(0, 2)
+        col = random.randint(0, 2)
+    return(row,col)
 
 
     
