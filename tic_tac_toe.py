@@ -130,38 +130,119 @@ def print_result(winner):
         print('O won!')
 
 
-def tictactoe_game(mode):
-    board = init_board()
-    player = 1
-    winner = 0
-    while not has_won(board, player):
-        print_board(board)
-        if (mode == 2 and player == 2) or (mode == 3 and player == 1):
-            ai_move = get_ai_move(board, player)
-            board = mark(board, player, ai_move[0], ai_move[1])
-
-        elif mode == 4:
-            row, col = get_ai_move(board, player)
-            board = mark(board, player, row, col)
-
-        else:
+def tictactoe_game(mode='HUMAN-HUMAN'):
+    if mode == 'HUMAN-HUMAN':
+        board = init_board()
+        player = 1
+        winner = 0
+        while not has_won(board, player) and not is_full(board):
+            print_board(board)
             row, col = get_move(board, player)
             board = mark(board, player, row, col)
 
-        if player == 1:
-            player = 2
-        else:
-            player = 1
-        if has_won(board, 1):
-            winner = 1
-            break
-        elif has_won(board, 2):
-            winner = 2
-            break
-        if is_full(board):
-            break
-    print_board(board)
-    print_result(winner)
+            if player == 1:
+                player = 2
+            else:
+                player = 1
+            if has_won(board, 1):
+                winner = 1
+                break
+            elif has_won(board, 2):
+                winner = 2
+                break
+            # if is_full(board):
+            #     break
+        print_board(board)
+        print_result(winner)
+        again()
+
+    elif mode == 'HUMAN-AI':
+        board = init_board()
+        player = 2
+        winner = 0
+        while not has_won(board, player) and not is_full(board):
+            print_board(board)
+            row, col = get_move(board, 1)
+            board = mark(board, 1, row, col)
+            print_board(board)
+            if not has_won(board, 1) and not is_full(board):
+                row, col = get_ai_move(board, 2)
+                mark(board, 2, row, col)
+                print_board(board)
+
+            if player == 1:
+                player = 2
+            else:
+                player = 1
+            if has_won(board, 1):
+                winner = 1
+                break
+            elif has_won(board, 2):
+                winner = 2
+                break
+        print_board(board)
+        print_result(winner)
+        again()
+
+    elif mode == 'AI-HUMAN':
+        board = init_board()
+        player = 2
+        winner = 0
+        while not has_won(board, player) and not is_full(board):
+            print_board(board)
+            row, col = get_ai_move(board, 2)
+            board = mark(board, 1, row, col)
+            print_board(board)
+            if not has_won(board, 1) and not is_full(board):
+                row, col = get_move(board, 2)
+                mark(board, 2, row, col)
+                print_board(board)
+
+            if player == 1:
+                player = 2
+            else:
+                player = 1
+            if has_won(board, 1):
+                winner = 1
+                break
+            elif has_won(board, 2):
+                winner = 2
+                break
+        print_board(board)
+        print_result(winner)
+        again()
+
+    elif mode == 'AI-AI':
+        board = init_board()
+        player = 1
+        winner = 0
+        while not has_won(board, player) and not is_full(board):
+            print_board(board)
+            row, col = get_ai_move(board, player)
+            board = mark(board, player, row, col)
+            if player == 1:
+                player = 2
+            else:
+                player = 1
+            if has_won(board, 1):
+                winner = 1
+                break
+            elif has_won(board, 2):
+                winner = 2
+                break
+        print_board(board)
+        print_result(winner)
+        again()
+
+
+def again():
+    print("\n")
+    again = input("Would you like to play again? Y/N ")
+    if again.lower() == "y":
+        return main_menu()
+    else:
+        print("Bye!")
+        exit()
 
 
 def main_menu():
@@ -177,15 +258,21 @@ def main_menu():
 
 1: HUMAN VS HUMAN    2: HUMAN VS AI    3: AI VS HUMAN    4: AI VS AI""")
     print("\n")
-    mode = int(input("              Please choose a game mode! (1/2/3/4): "))
-    tictactoe_game(mode)
-    print("\n")
-    again = input("Would you like to play again? Y/N ")
-    if again.lower() == "y":
-        return main_menu()
-    else:
+    mode = input("              Please choose a game mode! (1/2/3/4): ")
+
+    if mode == 'quit':
         print("Bye!")
-        exit()
+        quit()
+    elif mode == str(1):
+        tictactoe_game('HUMAN-HUMAN')
+    elif mode == str(2):
+        tictactoe_game('HUMAN-AI')
+    elif mode == str(3):
+        tictactoe_game('AI-HUMAN')
+    elif mode == str(4):
+        tictactoe_game('AI-AI')
+    else:
+        main_menu()
 
 
 if __name__ == '__main__':
